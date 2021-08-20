@@ -3,6 +3,7 @@ import { AppService } from './app.service';
 import { AutoModule } from './auto/auto.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AutoService } from './auto/auto.service';
+import { ServicioModule } from './servicio/servicio.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { AutoService } from './auto/auto.service';
       logging: true,
       logger: 'file',
     }),
-     AutoModule],
+     AutoModule,
+     ServicioModule],
   controllers: [],
   providers: [AppService],
 })
