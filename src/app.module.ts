@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AutoModule } from './auto/auto.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AutoService } from './auto/auto.service';
 import { ServicioModule } from './servicio/servicio.module';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
@@ -21,7 +21,8 @@ import { ServicioModule } from './servicio/servicio.module';
       logger: 'file',
     }),
      AutoModule,
-     ServicioModule],
+     ServicioModule,
+     UsuarioModule],
   controllers: [],
   providers: [AppService],
 })
