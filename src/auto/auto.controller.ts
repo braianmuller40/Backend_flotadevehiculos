@@ -1,40 +1,13 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { GenericController } from 'src/shared/abstract/generic-controller';
 import { AutoDto } from './auto.dto';
+import { Auto } from './auto.entity';
 import { AutoService } from './auto.service';
 
 @Controller('auto')
-export class AutoController {
+export class AutoController extends GenericController<Auto,AutoDto>{
 
-    constructor(private readonly service: AutoService) {}
-
-    @Get()
-    async getMany() {
-      const data = await this.service.getAll();
-      return { data };
+    constructor( readonly service: AutoService) {
+      super(service)
     }
-  
-    @Get(':id')
-    async getById(@Param('id', ParseIntPipe) id: number) {
-      const data = await this.service.getById(id);
-      return { data };
-    }
-  
-    @Post()
-    async createPost(@Body() dto: AutoDto) {
-      const data = await this.service.createOne(dto);
-      return data;
-    }
-  
-    @Put(':id')
-    async editOne(@Param('id') id: number, @Body() dto: AutoDto) {
-      const data = await this.service.editOne(id, dto);
-      return data;
-    }
-  
-    @Delete(':id')
-    async deleteOne(@Param('id') id: number) {
-      const data = await this.service.deleteOne(id);
-      return data;
-    }
-  
 }
