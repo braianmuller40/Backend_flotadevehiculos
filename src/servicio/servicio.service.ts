@@ -16,7 +16,7 @@ export class ServicioService extends GenericService<Servicio,ServicioDto>{
       }
 
       async getAll() {
-        return await this.repository.find({join:{alias:'task', leftJoinAndSelect:{subTasks:'task.subTasks'}}});
+        return await this.repository.find();
       }
 
 }

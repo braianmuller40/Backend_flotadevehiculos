@@ -7,6 +7,7 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { AuthModule } from './auth/auth.module';
 import { config } from 'process';
 import { ConfigModule } from '@nestjs/config';
+import { TiposServiciosModule } from './tipos-servicio/tipos-servicio.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ConfigModule } from '@nestjs/config';
      AutoModule,
      ServicioModule,
      UsuarioModule,
+     TiposServiciosModule,
      AuthModule],
   controllers: [],
   providers: [AppService],

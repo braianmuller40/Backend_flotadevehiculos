@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GenericService } from 'src/shared/abstract/generic-service';
 import { Repository } from 'typeorm';
-import { TiposServiciosDto } from './tipos_servicios.dto';
-import { TiposServicios } from './tipos_servicios.entity';
+import { TiposServicioDto } from './tipos-servicio.dto';
+import { TiposServicio } from './tipos-servicio.entity';
 
 @Injectable()
-export class TiposServiciosService extends GenericService<TiposServicios,TiposServiciosDto>{
+export class TiposServicioService extends GenericService<TiposServicio,TiposServicioDto>{
 
     constructor(
-        @InjectRepository(TiposServicios)
-         readonly repository: Repository<TiposServicios>,
+        @InjectRepository(TiposServicio)
+         readonly repository: Repository<TiposServicio>,
       ) {
         super(repository)
       }

@@ -1,18 +1,13 @@
-import { TipoUsuario} from "src/enums/tipoUsuario.enum";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
-
+import { Auto } from "src/auto/auto.entity";
+import { genericAtributes } from "src/shared/abstract/generic-atributes";
+import { TiposServicio } from "src/tipos-servicio/tipos-servicio.entity";
+import { Usuario } from "src/usuario/usuario.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Servicio{
+export class Servicio extends genericAtributes{
     @PrimaryGeneratedColumn()
     id: number;
-
-    @Column()
-    usuario: TipoUsuario;
-
-    @Column()
-    tipoServicio: string;
 
     @Column()
     valorServicio: number;
@@ -26,8 +21,13 @@ export class Servicio{
     @Column()
     kmFinal: number;
 
-    @Column()
-    descripcion: string;
+    @ManyToOne(() => Usuario, Usuario => Usuario.servicios)
+    usuarioCreador: Usuario;
 
+    @ManyToOne(() => TiposServicio, TiposServicios => TiposServicios.servicios)
+    tipoServicio: TiposServicio;
+
+    @ManyToOne(() => Auto, Auto => Auto.servicios)
+    auto: Auto;
     
 }

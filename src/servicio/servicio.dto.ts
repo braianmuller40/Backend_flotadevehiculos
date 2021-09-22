@@ -1,10 +1,11 @@
 import { IsEnum, IsInt, isInt, IsString } from "class-validator";
 import { TipoUsuario } from "src/enums/tipoUsuario.enum";
+import { GenericDto } from "src/shared/abstract/generic-dto";
 
 
 
 
-export class ServicioDto {
+export class ServicioDto extends GenericDto{
     
     @IsInt()
     id: number;
@@ -26,8 +27,5 @@ export class ServicioDto {
 
     @IsInt()
     kmFinal: number;
-
-    @IsString()
-    descripcion: string;
 
 }

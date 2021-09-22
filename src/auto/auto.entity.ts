@@ -1,7 +1,11 @@
-import { Column, Double, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { IsEnum } from "class-validator";
+import { Disponibilidad } from "src/enums/Disponibilidad.enum";
+import { Servicio } from "src/servicio/servicio.entity";
+import { genericAtributes } from "src/shared/abstract/generic-atributes";
+import { Column, Double, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Auto{
+export class Auto extends genericAtributes{
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -25,7 +29,10 @@ export class Auto{
 
     @Column()
     anoFabricacion: number;
+    
+    @IsEnum(Disponibilidad)
+    disponibilidad: Disponibilidad;
 
-    @Column()
-    descripcion: string;
+    @OneToMany(() => Servicio,Servicio => Servicio.auto)
+    servicios:Servicio[];
 }

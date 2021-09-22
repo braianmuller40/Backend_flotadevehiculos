@@ -17,7 +17,7 @@ export class AutoService extends GenericService<Auto,AutoDto>{
     }
 
     async getAll() {
-      return await this.repository.find({join:{alias:'task', leftJoinAndSelect:{subTasks:'task.subTasks'}}});
+      return await this.repository.find();
     }
     
 }

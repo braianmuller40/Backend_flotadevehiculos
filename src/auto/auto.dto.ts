@@ -1,10 +1,9 @@
 import { Type } from "class-transformer";
 import { IsEnum, IsInt, IsOptional, IsString, Length } from "class-validator";
+import { GenericDto } from "src/shared/abstract/generic-dto";
 
-export class AutoDto {
+export class AutoDto extends GenericDto{
     
-
-
     @IsInt()
     id: number;
 
@@ -28,9 +27,5 @@ export class AutoDto {
 
     @IsInt()
     anoFabricacion: number;
-
-    @IsOptional()
-    @IsString()
-    descripcion: string;
 
 }

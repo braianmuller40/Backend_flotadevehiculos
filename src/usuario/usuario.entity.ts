@@ -1,6 +1,7 @@
 import { TipoUsuario } from "src/enums/tipoUsuario.enum";
 import * as bcrypt from 'bcrypt';
-import { BeforeInsert, Column, Double, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Double, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Servicio } from "src/servicio/servicio.entity";
 
 @Entity()
 export class Usuario{
@@ -18,6 +19,10 @@ export class Usuario{
 
     @Column()
     tipoUsuario: TipoUsuario;
+
+    @OneToMany(() => Servicio, Servicio => Servicio.usuarioCreador)
+    servicios: Servicio[];
+  
 
     //Funciones de autenticacion
     @BeforeInsert()
