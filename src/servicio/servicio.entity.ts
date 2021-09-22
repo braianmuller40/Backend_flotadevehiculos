@@ -1,4 +1,3 @@
-import { TipoServicio } from "src/enums/tipoServicio.enum";
 import { TipoUsuario} from "src/enums/tipoUsuario.enum";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
@@ -13,7 +12,7 @@ export class Servicio{
     usuario: TipoUsuario;
 
     @Column()
-    tipoServicio: TipoServicio;
+    tipoServicio: string;
 
     @Column()
     valorServicio: number;

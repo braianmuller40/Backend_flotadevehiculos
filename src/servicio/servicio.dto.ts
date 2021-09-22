@@ -1,5 +1,4 @@
 import { IsEnum, IsInt, isInt, IsString } from "class-validator";
-import { TipoServicio } from "src/enums/tipoServicio.enum";
 import { TipoUsuario } from "src/enums/tipoUsuario.enum";
 
 
@@ -13,8 +12,8 @@ export class ServicioDto {
     @IsEnum(TipoUsuario)
     usuario: TipoUsuario;
 
-    @IsEnum(TipoServicio)
-    tipoServicio: TipoServicio;
+    @IsString()
+    tipoServicio: string;
 
     @IsInt()
     valorServicio: number;

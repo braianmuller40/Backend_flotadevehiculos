@@ -16,7 +16,12 @@ export class UsuarioService extends GenericService<Usuario,UsuarioDto> {
       }
 
       async getAll() {
-        return await this.repository.find({join:{alias:'task', leftJoinAndSelect:{subTasks:'task.subTasks'}}});
+        return await this.repository.find();
       }
+
+      async getUserByLogin(login: string): Promise<Usuario> {
+        return await this.repository.findOne({ login });
+    }
+
 
 }

@@ -13,7 +13,7 @@ export class UsuarioDto {
     login: string;
 
     @IsString()
-    contrasena: string;
+    password: string;
 
     @IsEnum(TipoUsuario)
     tipoUsuario: TipoUsuario;

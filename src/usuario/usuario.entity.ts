@@ -1,5 +1,6 @@
 import { TipoUsuario } from "src/enums/tipoUsuario.enum";
-import { Column, Double, Entity, PrimaryGeneratedColumn } from "typeorm";
+import * as bcrypt from 'bcrypt';
+import { BeforeInsert, Column, Double, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Usuario{
@@ -13,9 +14,21 @@ export class Usuario{
     login: string;
 
     @Column()
-    contrasena: string;
+    password: string;
 
     @Column()
     tipoUsuario: TipoUsuario;
+
+    //Funciones de autenticacion
+    @BeforeInsert()
+    async hashPassword() {
+      const salt = await bcrypt.genSalt();
+      this.password = await bcrypt.hash(this.password, salt);
+    }
+
+    async validatePassword(password: string){
+        return await bcrypt.compareSync(password, this.password);
+      }
+
 
 }
