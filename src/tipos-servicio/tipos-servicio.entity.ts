@@ -1,4 +1,4 @@
-import { Servicio } from "src/servicio/servicio.entity";
+import { Servicios } from "src/servicios/servicios.entity";
 import { genericAtributes } from "src/shared/abstract/generic-atributes";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -8,6 +8,6 @@ export class TiposServicio extends genericAtributes{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToMany(() => Servicio, Servicio => Servicio.tipoServicio)
-    servicios: Servicio[];
+    @OneToMany(() => Servicios, Servicios => Servicios.tipo_servicio)
+    servicio: Servicios[];
 }

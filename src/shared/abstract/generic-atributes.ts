@@ -4,10 +4,10 @@ import { Column, Entity } from "typeorm";
 export class genericAtributes{
 
     @Column()
-    fechaCreacion: Date;
+    fecha_creacion: Date;
 
     @Column()
-    fechaAlteracion: Date;
+    fecha_alteracion: Date;
 
     @Column()
     descripcion: string;

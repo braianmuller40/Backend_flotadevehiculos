@@ -4,11 +4,11 @@ export class GenericDto {
     
     @IsOptional()
     @IsDate()
-    fechaCreacion: Date;
+    fecha_creacion: Date;
 
     @IsOptional()
     @IsDate()
-    fechaAlteracion: Date;
+    fecha_alteracion: Date;
 
     @IsOptional()
     @IsString()
