@@ -17,7 +17,9 @@ export class AgendamientoService extends GenericService<Agendamiento,Agendamient
 
 
     async getAll(){
-        await this.repository.find();
+        await this.repository.find({ join: { alias: "agendamiento", leftJoinAndSelect: {servicio:'agendamiento.servicio'}}});
     }
+
+
 
 }

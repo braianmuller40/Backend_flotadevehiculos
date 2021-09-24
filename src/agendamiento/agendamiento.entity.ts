@@ -3,7 +3,7 @@ import { TipoAgendamiento } from "src/enums/tipoAgendamiento.enum";
 import { TipoPeriodo } from "src/enums/tipoPeriodo.enum";
 import { Servicio } from "src/servicio/servicio.entity";
 import { genericAtributes } from "src/shared/abstract/generic-atributes";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 
@@ -17,16 +17,17 @@ export class Agendamiento extends genericAtributes{
     @IsEnum(TipoAgendamiento)
     tipoAgendamiento:TipoAgendamiento;
 
-    @Column()
+    @Column({nullable:true})
     fechaObjetivo:Date;
 
-    @Column()
+    @Column({nullable:true})
     @IsEnum(TipoPeriodo)
     tipoPeriodo:TipoPeriodo;
 
-    @Column()
+    @Column({nullable:true})
     periodo:number;
 
-    @ManyToOne(() => Servicio, Servicio => Servicio.agendamientos)
+    @OneToOne(() => Servicio, Servicio => Servicio.agendamientos)
+    @JoinColumn()
     servicio: Servicio;
 }
