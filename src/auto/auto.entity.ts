@@ -30,6 +30,7 @@ export class Auto extends genericAtributes{
     @Column()
     anoFabricacion: number;
     
+    @Column()
     @IsEnum(Disponibilidad)
     disponibilidad: Disponibilidad;
 

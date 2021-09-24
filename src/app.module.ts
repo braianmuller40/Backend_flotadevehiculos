@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { config } from 'process';
 import { ConfigModule } from '@nestjs/config';
 import { TiposServiciosModule } from './tipos-servicio/tipos-servicio.module';
+import { AgendamientoModule } from './agendamiento/agendamiento.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { TiposServiciosModule } from './tipos-servicio/tipos-servicio.module';
      ServicioModule,
      UsuarioModule,
      TiposServiciosModule,
+     AgendamientoModule,
      AuthModule],
   controllers: [],
   providers: [AppService],
