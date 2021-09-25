@@ -1,5 +1,6 @@
 import { Agendamientos } from "src/agendamientos/agendamientos.entity";
 import { Autos } from "src/autos/autos.entity";
+import { Movimientos } from "src/movimientos/movimientos.entity";
 import { genericAtributes } from "src/shared/abstract/generic-atributes";
 import { TiposServicio } from "src/tipos-servicio/tipos-servicio.entity";
 import { Usuarios } from "src/usuarios/usuarios.entity";
@@ -21,4 +22,7 @@ export class Servicios extends genericAtributes{
     
     @OneToOne(() => Agendamientos, Agendamientos => Agendamientos.servicio)
     agendamientos: Agendamientos;
+
+    @OneToMany(() => Movimientos, Movimientos => Movimientos.servicio)
+    movimientos:Movimientos[];
 }

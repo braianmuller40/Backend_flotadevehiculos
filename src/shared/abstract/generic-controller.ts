@@ -12,14 +12,14 @@ export class GenericController<E,DTO> {
     @Get()
     async getMany() {
       const data = await this.service.getAll();
-      return { data };
+      return  data ;
     }
   
     @UseGuards(AuthGuard('jwt'))
     @Get(':id')
     async getById(@Param('id', ParseIntPipe) id: number) {
       const data = await this.service.getById(id);
-      return { data };
+      return  data ;
     }
   
     @Post()
