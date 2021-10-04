@@ -9,7 +9,6 @@ import { AgendamientosModule } from './agendamientos/agendamientos.module';
 import { ServiciosModule } from './servicios/servicios.module';
 import { AutosModule } from './autos/autos.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
-import { MovimientosModule } from './movimientos/movimientos.module';
 
 @Module({
   imports: [
@@ -33,7 +32,6 @@ import { MovimientosModule } from './movimientos/movimientos.module';
      ServiciosModule,
      UsuariosModule,
      TiposServiciosModule,
-     MovimientosModule,
      AgendamientosModule,
      AuthModule],
   controllers: [],

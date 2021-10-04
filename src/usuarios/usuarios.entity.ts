@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 import { BeforeInsert, Column, Double, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { classToPlain, Exclude } from "class-transformer";
 import { Servicios } from "src/servicios/servicios.entity";
+import { Agendamientos } from "src/agendamientos/agendamientos.entity";
 
 @Entity()
 export class Usuarios{
@@ -22,9 +23,12 @@ export class Usuarios{
     @Column()
     tipo_usuario: TipoUsuario;
 
-    @OneToMany(() => Servicios, Servicios => Servicios.usuario_creador)
+    @OneToMany(() => Servicios, Servicios => Servicios.usuario)
     servicios: Servicios[];
-  
+
+    @OneToMany(() => Agendamientos,Agendamientos => Agendamientos.usuario)
+    agendamientos:Agendamientos[];
+
     toJSON(){
       return classToPlain(this);
     }

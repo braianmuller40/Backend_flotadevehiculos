@@ -1,4 +1,5 @@
 import { IsEnum } from "class-validator";
+import { Agendamientos } from "src/agendamientos/agendamientos.entity";
 import { Disponibilidad } from "src/enums/disponibilidad.enum";
 import { Servicios } from "src/servicios/servicios.entity";
 import { genericAtributes } from "src/shared/abstract/generic-atributes";
@@ -36,4 +37,7 @@ export class Autos extends genericAtributes{
 
     @OneToMany(() => Servicios,Servicios => Servicios.auto)
     servicios:Servicios[];
+
+    @OneToMany(() => Agendamientos,Agendamientos => Agendamientos.auto)
+    agendamientos:Agendamientos[];
 }

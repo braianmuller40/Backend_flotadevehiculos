@@ -1,3 +1,4 @@
+import { Agendamientos } from "src/agendamientos/agendamientos.entity";
 import { Servicios } from "src/servicios/servicios.entity";
 import { genericAtributes } from "src/shared/abstract/generic-atributes";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -10,4 +11,7 @@ export class TiposServicio extends genericAtributes{
 
     @OneToMany(() => Servicios, Servicios => Servicios.tipo_servicio)
     servicio: Servicios[];
+
+    @OneToMany(() => Agendamientos,Agendamientos => Agendamientos.tipo_servicio)
+    agendamientos: Agendamientos[];
 }

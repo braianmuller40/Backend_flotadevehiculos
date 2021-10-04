@@ -1,4 +1,5 @@
-import { IsEnum, IsInt, isInt, IsString } from "class-validator";
+import { IsDate, IsEnum, IsInt, isInt, IsString } from "class-validator";
+import { Estado } from "src/enums/estado.enum";
 import { TipoUsuario } from "src/enums/tipo_usuario.enum";
 import { GenericDto } from "src/shared/abstract/generic-dto";
 
@@ -10,22 +11,22 @@ export class ServiciosDto extends GenericDto{
     @IsInt()
     id: number;
 
-    @IsEnum(TipoUsuario)
-    usuario: TipoUsuario;
+    @IsDate()
+    fecha_inicio:Date;
 
-    @IsString()
-    tipo_servicio: string;
-
-    @IsInt()
-    valor_servicio: number;
-
-    @IsString()
-    fecha_servicio: Date;
+    @IsDate()
+    fecha_fin:Date;
 
     @IsInt()
-    km_inicial: number;
+    km_inicial:number;
 
     @IsInt()
-    km_final: number;
+    km_final:number;
+
+    @IsInt()
+    valor_servicio:number;
+
+    @IsEnum(Estado)
+    estado:Estado;
 
 }

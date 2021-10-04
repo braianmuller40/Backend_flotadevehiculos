@@ -1,8 +1,11 @@
 import {  IsEnum } from "class-validator";
+import { Autos } from "src/autos/autos.entity";
 import { TipoAgendamiento } from "src/enums/tipo_agendamiento.enum";
 import { TipoPeriodo } from "src/enums/tipo_periodo.enum";
 import { Servicios } from "src/servicios/servicios.entity";
 import { genericAtributes } from "src/shared/abstract/generic-atributes";
+import { TiposServicio } from "src/tipos-servicio/tipos-servicio.entity";
+import { Usuarios } from "src/usuarios/usuarios.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
@@ -27,7 +30,12 @@ export class Agendamientos extends genericAtributes{
     @Column({nullable:true})
     periodo:number;
 
-    @OneToOne(() => Servicios, Servicios => Servicios.agendamientos)
-    @JoinColumn()
-    servicio: Servicios;
+    @ManyToOne(() => Autos,Autos => Autos.servicios)
+    auto:Autos;
+
+    @ManyToOne(() => Usuarios,Usuarios => Usuarios.agendamientos)
+    usuario:Usuarios;
+
+    @ManyToOne(() => TiposServicio,TiposServicio => TiposServicio.agendamientos)
+    tipo_servicio:TiposServicio;
 }
