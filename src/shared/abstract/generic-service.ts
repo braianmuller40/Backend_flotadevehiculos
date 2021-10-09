@@ -21,12 +21,12 @@ export class GenericService<E,DTO>{
     }
   
     async editOne(id: number, dto: DTO) {
-      const task = await this.repository.findOne(id);
+      const object = await this.repository.findOne(id);
   
-      if (!task) throw new NotFoundException('Task does not exist');
+      if (!object) throw new NotFoundException('Task does not exist');
   
-      const editedTask = Object.assign(task, dto);
-      return await this.repository.save(editedTask);
+      const editedObject = Object.assign(object, dto);
+      return await this.repository.save(editedObject);
     }
   
     async deleteOne(id: number) {

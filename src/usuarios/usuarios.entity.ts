@@ -1,6 +1,6 @@
 import { TipoUsuario } from "src/enums/tipo_usuario.enum";
 import * as bcrypt from 'bcrypt';
-import { BeforeInsert, Column, Double, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Double, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { classToPlain, Exclude } from "class-transformer";
 import { Servicios } from "src/servicios/servicios.entity";
 import { Agendamientos } from "src/agendamientos/agendamientos.entity";
@@ -35,7 +35,11 @@ export class Usuarios{
 
     //Funciones de autenticacion
     @BeforeInsert()
+    @BeforeUpdate()
     async hashPassword() {
+      if(!this.password){
+        this.password = this.login;
+      }
       const salt = await bcrypt.genSalt();
       this.password = await bcrypt.hash(this.password, salt);
     }
