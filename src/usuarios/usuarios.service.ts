@@ -27,7 +27,7 @@ export class UsuariosService extends GenericService<Usuarios,UsuariosDto>{
     async changePassword(dto:ChangeUserPassDto){
         const user = await this.repository.findOne({login:dto.login});
         if(user && await user.validatePassword(dto.password)){
-            const editUser = Object.assign(user,{password:dto.newPassword});
+            const editUser = Object.assign(user,{password:dto.new_password});
             return await this.repository.save(editUser);
         }else{
             throw new NotFoundException('User dont exist or password incorrect');

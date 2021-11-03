@@ -4,9 +4,11 @@ import { BeforeInsert, BeforeUpdate, Column, Double, Entity, OneToMany, PrimaryG
 import { classToPlain, Exclude } from "class-transformer";
 import { Servicios } from "src/servicios/servicios.entity";
 import { Agendamientos } from "src/agendamientos/agendamientos.entity";
+import { genericAtributes } from "src/shared/abstract/generic-atributes";
+import { IsEnum } from "class-validator";
 
 @Entity()
-export class Usuarios{
+export class Usuarios extends genericAtributes{
     @PrimaryGeneratedColumn()
     id: number;
 

@@ -12,7 +12,7 @@ export class UsuariosController extends GenericController<Usuarios,UsuariosDto>{
         super(service);
     }
 
-    @Post("ChangePassword")
+    @Post("changePassword")
     async changePass(@Body() dto: ChangeUserPassDto) {
       const data = await this.service.changePassword(dto);
       return data;

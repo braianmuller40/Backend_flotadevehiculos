@@ -17,5 +17,5 @@ export class UsuariosDto extends GenericDto {
     password: string;
 
     @IsEnum(TipoUsuario)
-    tipo_Usuario: TipoUsuario;
+    tipo_usuario: TipoUsuario;
 }

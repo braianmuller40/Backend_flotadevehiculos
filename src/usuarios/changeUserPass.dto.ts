@@ -1,4 +1,5 @@
 import { IsString } from "class-validator";
+import { genericAtributes } from "src/shared/abstract/generic-atributes";
 
 export class ChangeUserPassDto{   
 
@@ -9,5 +10,8 @@ export class ChangeUserPassDto{
     password: string;
 
     @IsString()
-    newPassword: string;
+    new_password: string;
+
+    @IsString()
+    fecha_alteracion: Date;
 }
