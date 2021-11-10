@@ -1,4 +1,3 @@
-import { IsEnum } from "class-validator";
 import { Agendamientos } from "src/agendamientos/agendamientos.entity";
 import { Disponibilidad } from "src/enums/disponibilidad.enum";
 import { Servicios } from "src/servicios/servicios.entity";
@@ -31,8 +30,7 @@ export class Autos extends genericAtributes{
     @Column()
     ano_fabricacion: number;
     
-    @Column()
-    @IsEnum(Disponibilidad)
+    @Column({type: "enum", enum:Disponibilidad})
     disponibilidad: Disponibilidad;
 
     @OneToMany(() => Servicios,Servicios => Servicios.auto)

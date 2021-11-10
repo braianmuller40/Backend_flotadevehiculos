@@ -1,4 +1,4 @@
 export enum TipoPeriodo{
-    KILOMETROS = 'K',
-    DIAS = 'D'
+    KILOMETROS = 'KILOMETROS',
+    DIAS = 'DIAS'
 }

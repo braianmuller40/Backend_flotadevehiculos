@@ -1,4 +1,4 @@
-import { IsDate, IsEnum, IsInt } from "class-validator";
+import { IsDate, IsEnum, IsInt, IsOptional } from "class-validator";
 import { TipoAgendamiento } from "src/enums/tipo_agendamiento.enum";
 import { TipoPeriodo } from "src/enums/tipo_periodo.enum";
 import { GenericDto } from "src/shared/abstract/generic-dto";
@@ -6,6 +6,7 @@ import { GenericDto } from "src/shared/abstract/generic-dto";
 
 export class AgendamientosDto extends GenericDto{
 
+    @IsOptional()
     @IsInt()
     id:number;
 

@@ -1,9 +1,11 @@
 import { Type } from "class-transformer";
 import { IsEnum, IsInt, IsOptional, IsString, Length } from "class-validator";
+import { Disponibilidad } from "src/enums/disponibilidad.enum";
 import { GenericDto } from "src/shared/abstract/generic-dto";
 
 export class AutosDto extends GenericDto{
     
+    @IsOptional()
     @IsInt()
     id: number;
 
@@ -22,10 +24,13 @@ export class AutosDto extends GenericDto{
     @IsInt()
     kilometraje: number;
 
-    @IsInt()
+    @Type(() => Number)
     anoModelo: number;
 
-    @IsInt()
+    @Type(() => Number)
     anoFabricacion: number;
+
+    @IsEnum(Disponibilidad)
+    disponibilidad: Disponibilidad;
 
 }

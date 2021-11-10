@@ -1,4 +1,4 @@
-import { IsDate, IsEnum, IsInt, isInt, IsString } from "class-validator";
+import { IsDate, IsEnum, IsInt, isInt, IsOptional, IsString } from "class-validator";
 import { Estado } from "src/enums/estado.enum";
 import { TipoUsuario } from "src/enums/tipo_usuario.enum";
 import { GenericDto } from "src/shared/abstract/generic-dto";
@@ -8,6 +8,7 @@ import { GenericDto } from "src/shared/abstract/generic-dto";
 
 export class ServiciosDto extends GenericDto{
     
+    @IsOptional()
     @IsInt()
     id: number;
 

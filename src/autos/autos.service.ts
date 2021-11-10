@@ -18,4 +18,5 @@ export class AutosService extends GenericService<Autos,AutosDto>{
     async getAll(){
         return await this.repository.find();
     }
+
 }

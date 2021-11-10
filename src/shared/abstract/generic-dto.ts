@@ -1,13 +1,14 @@
+import { Type } from "class-transformer";
 import { IsDate, IsOptional, IsString } from "class-validator";
 
 export class GenericDto {
     
     @IsOptional()
-    @IsDate()
+    @Type(() => Date)
     fecha_creacion: Date;
 
     @IsOptional()
-    @IsDate()
+    @Type(() => Date)
     fecha_alteracion: Date;
 
     @IsOptional()
