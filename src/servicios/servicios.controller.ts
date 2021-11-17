@@ -24,9 +24,9 @@ export class ServiciosController{
     }
 
     @UseGuards(AuthGuard('jwt'))
-    @Get("getPerPagination")
-    async getPerPagination(@Query() query: any) {
-      const data = await this.service.getPPagination(query);
+    @Get("getPerFilter")
+    async getPerFilter(@Query() query: any) {
+      const data = await this.service.getPFilter(query);
       return data;
     }
   

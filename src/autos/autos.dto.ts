@@ -25,10 +25,10 @@ export class AutosDto extends GenericDto{
     kilometraje: number;
 
     @Type(() => Number)
-    anoModelo: number;
+    ano_modelo: number;
 
     @Type(() => Number)
-    anoFabricacion: number;
+    ano_fabricacion: number;
 
     @IsEnum(Disponibilidad)
     disponibilidad: Disponibilidad;

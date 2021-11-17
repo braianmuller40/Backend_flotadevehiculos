@@ -14,6 +14,7 @@ export class UsuariosDto extends GenericDto {
     @IsString()
     login: string;
 
+    @IsOptional()
     @IsString()
     password: string;
 
