@@ -10,12 +10,12 @@ export class TiposServicioController{
     constructor(readonly service: TiposServicioService) {}
 
    
-      @UseGuards(AuthGuard('jwt'))
-      @Get("count")
-      async countRepository() {
-        const data = await this.service.countRep();
-        return  data ;
-      }
+    @UseGuards(AuthGuard('jwt'))
+    @Get("count")
+    async countRepository(@Query() query: any) {
+      const data = await this.service.countRep(query);
+      return  data ;
+    }
   
       @UseGuards(AuthGuard('jwt'))
       @Get()

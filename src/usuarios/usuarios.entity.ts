@@ -15,7 +15,7 @@ export class Usuarios extends genericAtributes{
     @Column()
     nombre: string;
 
-    @Column()
+    @Column({unique:true})
     login: string;
 
     @Column()

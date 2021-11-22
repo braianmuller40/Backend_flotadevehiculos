@@ -11,8 +11,8 @@ export class ServiciosController{
      
     @UseGuards(AuthGuard('jwt'))
     @Get("count")
-    async countRepository() {
-      const data = await this.service.countRep();
+    async countRepository(@Query() query: any) {
+      const data = await this.service.countRep(query);
       return  data ;
     }
 

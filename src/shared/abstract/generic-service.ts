@@ -1,20 +1,20 @@
-import { ConsoleLogger, Injectable, NotFoundException } from '@nestjs/common';
-import { Equals } from 'class-validator';
-import { Between, Equal, FindManyOptions,ILike,LessThanOrEqual,MoreThanOrEqual, Repository } from 'typeorm';
-import { GenericEnumAutos } from './genericEnumAutos.enum';
+import { HttpService } from '@nestjs/axios';
+import { HttpServer, Injectable, NotFoundException } from '@nestjs/common';
+import { Utils } from 'src/utils/utils';
+import { Between,ILike,LessThanOrEqual,MoreThanOrEqual, Repository } from 'typeorm';
+const fs = require('fs');
+
 
 @Injectable()
 export class GenericService<E,EDTO>{
-  
   filter:{[key:string]:any}={}; 
-  order:any = {id:"ASC"};
+  order:any = {id:"DESC"};
 
     constructor(readonly repository: Repository<E>) {}
     
 
     async getPFilter(query: any){
       const {skip, take, obj} = query;
-  
       return await this.repository.find({
           order:this.order,
           skip:skip,
@@ -22,6 +22,7 @@ export class GenericService<E,EDTO>{
           where:this.where(obj)
         })
     }
+
 
     where(obj:any){
       this.filter = JSON.parse(obj);
@@ -58,8 +59,9 @@ export class GenericService<E,EDTO>{
 
 
 
-    async countRep(){
-       return await this.repository.count();
+    async countRep(query: any){
+      const {obj} = query;
+       return await this.repository.count({where:this.where(obj)});
     }
 
 
@@ -70,11 +72,13 @@ export class GenericService<E,EDTO>{
     }
   
     async createOne(dto: EDTO) {
+      dto = Utils.reformData("create",dto);
       const task = this.repository.create(dto);
       return await this.repository.save(task);
     }
   
     async editOne(id: number, dto: EDTO) {
+      dto = Utils.reformData("edit",dto);
       const object = await this.repository.findOne(id);
   
       if (!object) throw new NotFoundException('Objeto  no existe');
@@ -87,5 +91,5 @@ export class GenericService<E,EDTO>{
       return await this.repository.delete(id);
     }
 
-
+    
 }

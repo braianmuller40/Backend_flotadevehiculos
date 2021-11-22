@@ -1,7 +1,8 @@
+import { HttpService } from '@nestjs/axios';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GenericService } from 'src/shared/abstract/generic-service';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { ChangeUserPassDto } from './changeUserPass.dto';
 import { UsuariosDto } from './usuarios.dto';
 import { Usuarios } from './usuarios.entity';
@@ -11,7 +12,8 @@ export class UsuariosService extends GenericService<Usuarios,UsuariosDto>{
 
     constructor(
         @InjectRepository(Usuarios)
-        readonly repository:Repository<Usuarios>
+        readonly repository:Repository<Usuarios>,
+        
     ){
         super(repository);
     }
@@ -21,7 +23,7 @@ export class UsuariosService extends GenericService<Usuarios,UsuariosDto>{
     }
 
     async getUserByLogin(login:string){
-        return await this.repository.findOne({login});
+        return await this.repository.findOne({where:{login:ILike(login)}});
     }
 
     async changePassword(dto:ChangeUserPassDto){

@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, U
 import { AuthGuard } from '@nestjs/passport';
 import { ChangeUserPassDto } from './changeUserPass.dto';
 import { UsuariosDto } from './usuarios.dto';
+import { Usuarios } from './usuarios.entity';
 import { UsuariosService } from './usuarios.service';
 
 @Controller('usuarios')
@@ -9,17 +10,23 @@ export class UsuariosController{
 
     constructor(readonly service:UsuariosService){}
 
+    @UseGuards(AuthGuard('jwt'))
     @Post("changePassword")
     async changePass(@Body() dto: ChangeUserPassDto) {
       const data = await this.service.changePassword(dto);
       return data;
     }
 
-   
+    @Post("verifyUser")
+    async getUserByLogin(@Body() user: Usuarios) {
+      const data = await this.service.getUserByLogin(user.login);
+      return  data ;
+    }
+
     @UseGuards(AuthGuard('jwt'))
     @Get("count")
-    async countRepository() {
-      const data = await this.service.countRep();
+    async countRepository(@Query() query: any) {
+      const data = await this.service.countRep(query);
       return  data ;
     }
 

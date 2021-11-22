@@ -2,13 +2,13 @@ import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import { config } from 'process';
 import { ConfigModule } from '@nestjs/config';
 import { TiposServiciosModule } from './tipos-servicio/tipos-servicio.module';
 import { AgendamientosModule } from './agendamientos/agendamientos.module';
 import { ServiciosModule } from './servicios/servicios.module';
 import { AutosModule } from './autos/autos.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
+import { ApiChargeModule } from './apiCharge/api-charge.module';
 
 @Module({
   imports: [
@@ -33,7 +33,8 @@ import { UsuariosModule } from './usuarios/usuarios.module';
      UsuariosModule,
      TiposServiciosModule,
      AgendamientosModule,
-     AuthModule],
+     AuthModule,
+     ApiChargeModule],
   controllers: [],
   providers: [AppService],
 })
