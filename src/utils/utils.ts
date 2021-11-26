@@ -5,36 +5,40 @@ var readline = require('readline');
 export class Utils{
 
     static conf={
-      username:"login",
-      fechaCreacion:"fecha_creacion",
-    }
-
-
-    static ipK(){
-        return "http://192.168.100.37:3000";
+      on:true,
+      security:false,
+      ip:"https://api-users-datapar.herokuapp.com",
+      ipAuth:"https://api-users-datapar.herokuapp.com",
+      infoAuth:{login:"ag", contrasena:"ag1996"},
+      campos:{
+        username:"login",
+     }, 
     }
 
     //reform Uppercase
-    static reformData(state:string, items:any){
-      state === 'create' ? delete items.id:false;
-        for (let item in  items) {
-          (typeof items[item] === 'string') && (item !== "login" && item !== "password")?
-           items[item] = items[item].toUpperCase():false;
+    static reformData(state:string, item:any){
+      state === 'create' ? delete item.id:false;
+        for (let i in  item) {
+          (typeof item[i] === 'string') && (i !== "login" && i !== "password")?
+            item[i] = item[i].toUpperCase():false;
          }
-        return items;
+        return item;
       }
 
     //reform campos
     static reformCampos(items:any){
       let target:{[key:string]:any}=items;
       for(let i in target){
-        for(let t in this.conf){
+        for(let t in this.conf.campos){
           if(i==t){
-            target[this.conf[t]]=target[i];
+            target[this.conf.campos[t]]=target[i];
             delete target[i];
           }
         }
       }
+      target["fecha_creacion"]? false:target["fecha_creacion"] = new Date();
+      target["tipo_usuario"]? false:target["tipo_usuario"] = "USUARIO";
+
       return target;
     }
 

@@ -15,33 +15,35 @@ const fs = require('fs');
 @Injectable()
 export class ApiChargeService {
 
-    api = Utils.ipK();
-
     constructor( @InjectRepository(Usuarios) readonly userRep:Repository<Usuarios>,private httpServ:HttpService){}
 
 
-    @Interval(200000)
+    @Interval(60000)
     handleInterval() {
-        this.getItems();
+        Utils.conf.on?this.getItems():false;
     }
 
 
     getItems(){
-        this.findToken().subscribe({
-            next:(result:any) => this.getByToken(result.data.token),
-            error:(err:any) => Utils.writeInline("No se pudo authenticar con el API"),
-        });
+        if(Utils.conf.security === true){
+            this.findToken().subscribe({
+                next:(result:any) => this.getByToken(result.data.token),
+                error:(err:any) => Utils.writeInline("No se pudo authenticar con el API"),
+            });  
+        }else{
+            this.getByToken({});
+        }
     }
 
     getByToken(token:any){
-        this.httpServ.get(this.api+"/usuarios" , { headers: {"Authorization" : `Bearer ${token}`} }).subscribe({
+        this.httpServ.get(Utils.conf.ip+"/usuarios" , { headers: {"Authorization" : `Bearer ${token}`} }).subscribe({
             next:(result:any) => this.readApi(result.data),
-            error:(err:any) => Utils.writeInline("No se pudo obtener los datos del"),
+            error:(err:any) => Utils.writeInline("No se pudo obtener los datos del API"),
         });      
     }
 
     findToken() : Observable<AxiosResponse<any[]>> {
-        return this.httpServ.post(this.api+'/auth/login',{login:"ag",contrasena:"ag1996"});
+        return this.httpServ.post(Utils.conf.ipAuth+"/usuarios",Utils.conf.infoAuth);
     }
 
     async readApi(items:any){
@@ -49,16 +51,17 @@ export class ApiChargeService {
         if(items.length !== 0){
             let procesado:number=0;
             for(let item of items){
+                item = Utils.reformCampos(item);
                 if((await this.userRep.find({where:{login:ILike(item.login)}})).length == 0){
-                  await this.userRep.save(this.userRep.create(Utils.reformCampos(Utils.reformData("create",item)))).catch(result => Utils.writeInline("item duplicado:"+item.login));
+                  await this.userRep.save(this.userRep.create(Utils.reformData("create",item))).catch(result => Utils.writeInline("item duplicado:"+item.login));
                   insertados++;
                 }
                 procesado++;
                 Utils.processLoading(procesado,items.length);
-                setTimeout(()=> Utils.writeInline(""),5000);
             }
         }
         insertados == 0? false:Utils.writeInline(insertados+" registros insertados");
+        setTimeout(()=>Utils.writeInline(""),5000)
      }
 
 

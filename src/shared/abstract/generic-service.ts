@@ -14,13 +14,28 @@ export class GenericService<E,EDTO>{
     
 
     async getPFilter(query: any){
-      const {skip, take, obj} = query;
+      const {skip, take, obj, join} = query;
       return await this.repository.find({
           order:this.order,
           skip:skip,
           take:take,
-          where:this.where(obj)
+          where:this.where(obj),
+          join: {
+            alias: "A",
+            leftJoinAndSelect:this.leftJoinAndSelect(join),
+          },
         })
+    }
+
+    
+    leftJoinAndSelect(obj:any){
+      let result:{[key:string]:any}={};
+      if(obj){
+        for(let i of obj){
+           result[i]="A."+i;
+        }
+      }
+      return result;
     }
 
 
@@ -28,8 +43,8 @@ export class GenericService<E,EDTO>{
       this.filter = JSON.parse(obj);
       let consultaFinal = new Array(); 
 
-      if(this.filter.strings){
-        for(let t of Object.keys(this.filter.strings)){
+      if(this.filter.writes){
+        for(let t of this.filter.writes){
           let consulta:{[key:string]:any}={};
   
           for(let i of Object.keys(this.filter)){
@@ -60,8 +75,14 @@ export class GenericService<E,EDTO>{
 
 
     async countRep(query: any){
-      const {obj} = query;
-       return await this.repository.count({where:this.where(obj)});
+      const {obj, join} = query;
+       return await this.repository.count({
+         where:this.where(obj),
+         join: {
+          alias: "A",
+          leftJoinAndSelect:this.leftJoinAndSelect(join),
+        },
+        });
     }
 
 

@@ -1,3 +1,4 @@
+import { Type } from "class-transformer";
 import { IsDate, IsEnum, IsInt, isInt, IsOptional, IsString } from "class-validator";
 import { Estado } from "src/enums/estado.enum";
 import { TipoUsuario } from "src/enums/tipo_usuario.enum";
@@ -12,10 +13,10 @@ export class ServiciosDto extends GenericDto{
     @IsInt()
     id: number;
 
-    @IsDate()
+    @Type(() => Date)
     fecha_inicio:Date;
 
-    @IsDate()
+    @Type(() => Date)
     fecha_fin:Date;
 
     @IsInt()
