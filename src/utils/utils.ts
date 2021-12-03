@@ -1,9 +1,10 @@
 import { Logger } from "@nestjs/common";
 import { dir } from "console";
+import { AuthService } from "src/auth/auth.service";
 var readline = require('readline');
 
 export class Utils{
-
+private authServ:AuthService;
     static conf={
       on:true,
       security:false,
@@ -16,8 +17,7 @@ export class Utils{
     }
 
     //reform Uppercase
-    static reformData(state:string, item:any){
-      state === 'create' ? delete item.id:false;
+    static reformData(item:any){
         for (let i in  item) {
           (typeof item[i] === 'string') && (i !== "login" && i !== "password")?
             item[i] = item[i].toUpperCase():false;
@@ -36,7 +36,7 @@ export class Utils{
           }
         }
       }
-      target["fecha_creacion"]? false:target["fecha_creacion"] = new Date();
+      target["fecha_creacion"]? false:target["fecha_creacion"] = this.getCurrentDate();
       target["tipo_usuario"]? false:target["tipo_usuario"] = "USUARIO";
 
       return target;
@@ -58,5 +58,10 @@ export class Utils{
       process.stdout.write(item);
     }
 
+
+    static getCurrentDate(){
+      let newDate = new Date();
+      return new Date(newDate.setMinutes(newDate.getMinutes() - newDate.getTimezoneOffset()));
+    }
 
 }

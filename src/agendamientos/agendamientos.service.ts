@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AuthService } from 'src/auth/auth.service';
 import { GenericService } from 'src/shared/abstract/generic-service';
 import { Repository } from 'typeorm';
 import { AgendamientosDto } from './agendamientos.dto';

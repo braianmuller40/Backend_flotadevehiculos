@@ -53,7 +53,7 @@ export class ApiChargeService {
             for(let item of items){
                 item = Utils.reformCampos(item);
                 if((await this.userRep.find({where:{login:ILike(item.login)}})).length == 0){
-                  await this.userRep.save(this.userRep.create(Utils.reformData("create",item))).catch(result => Utils.writeInline("item duplicado:"+item.login));
+                  await this.userRep.save(this.userRep.create(Utils.reformData(item))).catch(result => Utils.writeInline("item duplicado:"+item.login));
                   insertados++;
                 }
                 procesado++;

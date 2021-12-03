@@ -1,12 +1,13 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UseGuards, Headers } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from 'src/auth/auth.service';
 import { ServiciosDto } from './servicios.dto';
 import { ServiciosService } from './servicios.service';
 
 @Controller('servicios')
 export class ServiciosController{
 
-    constructor(readonly service:ServiciosService){}
+    constructor(readonly service:ServiciosService, private authServ:AuthService){}
 
      
     @UseGuards(AuthGuard('jwt'))
@@ -39,22 +40,35 @@ export class ServiciosController{
   
     @UseGuards(AuthGuard('jwt'))
     @Delete(':id')
-    async deleteOne(@Param('id') id: number) {
-      const data = await this.service.deleteOne(id);
+    async deleteOne(@Headers() headers:any ,@Param('id') id: number) {
+      const data = await this.getAdminByHeader(headers)? await this.service.deleteOne(id):{};
       return data;
     }
 
     @Post()
-    async createPost(@Body() dto: ServiciosDto) {
-      const data = await this.service.createOne(dto);
+    async createPost(@Headers() headers:any ,@Body() dto: ServiciosDto) {
+      const data = await this.getAdminByHeader(headers)? await this.service.createOne(dto):{};
       return data;
     }
   
     @UseGuards(AuthGuard('jwt'))
     @Put(':id')
-    async editOne(@Param('id') id: number, @Body() dto: ServiciosDto) {
-      const data = await this.service.editOne(id, dto);
+    async editOne(@Headers() headers:any ,@Param('id') id: number, @Body() dto: ServiciosDto) {
+      const data = await this.getAdminByHeader(headers)? await this.service.editOne(id, dto):{};
       return data;
+    }
+
+
+    
+    async getAdminByHeader(headers:any){
+      let userTok = await this.authServ.verifyToken(this.getToken(headers));
+      return await userTok.role == 'ADMINISTRADOR'? true:false;
+    }
+
+    getToken(headers:any){
+      let token:{[key:string]:any}={};
+      token['access_token']= headers.authorization.split(' ')[1];
+      return token;
     }
 
 }
