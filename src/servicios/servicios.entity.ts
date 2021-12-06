@@ -13,16 +13,16 @@ export class Servicios extends genericAtributes{
     @Column()
     fecha_inicio:Date;
 
-    @Column()
+    @Column({nullable:true})
     fecha_fin:Date;
 
     @Column()
     km_inicial:number;
 
-    @Column()
+    @Column({nullable:true})
     km_final:number;
 
-    @Column()
+    @Column({nullable:true})
     valor_servicio:number;
 
     @Column()
@@ -32,7 +32,7 @@ export class Servicios extends genericAtributes{
     @ManyToOne(() => Usuarios, Usuarios => Usuarios.servicios)
     usuario: Usuarios;
 
-    @ManyToOne(() => TiposServicio, TiposServicios => TiposServicios.servicio)
+    @ManyToOne(() => TiposServicio, TiposServicios => TiposServicios.servicios)
     tipo_servicio: TiposServicio;
 
     @ManyToOne(() => Autos, Autos => Autos.servicios)

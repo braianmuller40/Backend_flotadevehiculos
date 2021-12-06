@@ -7,12 +7,13 @@ export class Utils{
 private authServ:AuthService;
     static conf={
       on:true,
-      security:false,
-      ip:"https://api-users-datapar.herokuapp.com",
-      ipAuth:"https://api-users-datapar.herokuapp.com",
-      infoAuth:{login:"ag", contrasena:"ag1996"},
+      security:true,
+      ip:"https://api-users-datapar.herokuapp.com/usuarios",
+      ipAuth:"https://api-users-datapar.herokuapp.com/auth",
+      infoAuth:{key:"apidatuser"},
       campos:{
-        username:"login",
+        login_usuario:"login",
+        nombre_usuario:"nombre"
      }, 
     }
 
@@ -62,6 +63,15 @@ private authServ:AuthService;
     static getCurrentDate(){
       let newDate = new Date();
       return new Date(newDate.setMinutes(newDate.getMinutes() - newDate.getTimezoneOffset()));
+    }
+
+    static getDate(day:any,month:any,year:any){
+      let nDate = this.getCurrentDate();
+      let Day = day? day : nDate.getDate();
+      let Month = month? month:nDate.getMonth()+1;
+      let Year = year? year:nDate.getFullYear();
+      let sDate:string = Year.toString()+'-'+Month.toString()+'-'+Day.toString();
+      return new Date(sDate);
     }
 
 }

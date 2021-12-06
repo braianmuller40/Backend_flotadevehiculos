@@ -20,7 +20,7 @@ export class AuthController {
 
   @Post('verifyToken')
   async veriToken(@Body() token: any){
-     return await this.authService.verifyToken(token);
+     return await this.authService.verifyToken(token).catch(() => {});
   }
 
 

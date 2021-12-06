@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
@@ -9,9 +9,13 @@ import { ServiciosModule } from './servicios/servicios.module';
 import { AutosModule } from './autos/autos.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { ApiChargeModule } from './apiCharge/api-charge.module';
+import { Usuarios } from './usuarios/usuarios.entity';
+import { UsuariosService } from './usuarios/usuarios.service';
+import { ReporteModule } from './reporte/reporte.module';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([Usuarios]),
     ConfigModule.forRoot({
       envFilePath:'.env'
     }),
@@ -34,7 +38,9 @@ import { ApiChargeModule } from './apiCharge/api-charge.module';
      TiposServiciosModule,
      AgendamientosModule,
      AuthModule,
-     ApiChargeModule],
+     ApiChargeModule,
+     ReporteModule
+    ],
   controllers: [],
   providers: [AppService],
 })

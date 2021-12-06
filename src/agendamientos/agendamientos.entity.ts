@@ -29,7 +29,7 @@ export class Agendamientos extends genericAtributes{
     @Column({nullable:true})
     periodo:number;
 
-    @ManyToOne(() => Autos,Autos => Autos.servicios)
+    @ManyToOne(() => Autos,Autos => Autos.agendamientos)
     auto:Autos;
 
     @ManyToOne(() => Usuarios,Usuarios => Usuarios.agendamientos)

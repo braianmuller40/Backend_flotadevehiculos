@@ -8,7 +8,9 @@ import {
   MoreThanOrEqual,
   Repository,
 } from 'typeorm';
+
 const fs = require('fs');
+var moment = require('moment');
 
 @Injectable()
 export class GenericService<E, EDTO> {
@@ -53,10 +55,11 @@ export class GenericService<E, EDTO> {
         Array.prototype.push.apply(result, resultRelations);
       }
     }
-    resultWrites = this.setFilter('writes','',this.filter.writes);
-    Array.prototype.push.apply(result, resultWrites);
 
-  return result;
+      resultWrites = this.setFilter('writes','',this.filter.writes);
+      Array.prototype.push.apply(result, resultWrites);
+
+    return result;
   }
 
 
@@ -71,9 +74,6 @@ export class GenericService<E, EDTO> {
           if (this.filter[i].value) {
             consulta[i] = this.filter[i].value;
           }
-          if (this.filter[i].from && this.filter[i].to) {
-            consulta[i] = Between(this.filter[i].from, this.filter[i].to);
-          }
           if (this.filter[i].from || this.filter[i].min) {
             this.filter[i].from
               ? (consulta[i] = MoreThanOrEqual(this.filter[i].from))
@@ -83,6 +83,12 @@ export class GenericService<E, EDTO> {
             this.filter[i].to
               ? (consulta[i] = LessThanOrEqual(this.filter[i].to))
               : (consulta[i] = LessThanOrEqual(this.filter[i].max));
+          }
+          if (this.filter[i].from && this.filter[i].to) {
+            consulta[i] = Between(this.filter[i].from, this.filter[i].to);
+          }
+          if (this.filter[i].min && this.filter[i].max) {
+            consulta[i] = Between(this.filter[i].min, this.filter[i].max);
           }
           if (this.filter[i].writed) {
             if(state === 'writes'){
@@ -129,9 +135,7 @@ export class GenericService<E, EDTO> {
     dto = Utils.reformData(dto);
     Object.assign(dto,{fecha_alteracion:Utils.getCurrentDate()});
     const object = await this.repository.findOne(id);
-
     if (!object) throw new NotFoundException('Objeto  no existe');
-
     const editedObject = Object.assign(object, dto);
     return await this.repository.save(editedObject);
   }

@@ -36,14 +36,14 @@ export class ApiChargeService {
     }
 
     getByToken(token:any){
-        this.httpServ.get(Utils.conf.ip+"/usuarios" , { headers: {"Authorization" : `Bearer ${token}`} }).subscribe({
+        this.httpServ.get(Utils.conf.ip, { headers: {"Authorization" : `Bearer ${token}`} }).subscribe({
             next:(result:any) => this.readApi(result.data),
             error:(err:any) => Utils.writeInline("No se pudo obtener los datos del API"),
         });      
     }
 
     findToken() : Observable<AxiosResponse<any[]>> {
-        return this.httpServ.post(Utils.conf.ipAuth+"/usuarios",Utils.conf.infoAuth);
+        return this.httpServ.post(Utils.conf.ipAuth,Utils.conf.infoAuth);
     }
 
     async readApi(items:any){

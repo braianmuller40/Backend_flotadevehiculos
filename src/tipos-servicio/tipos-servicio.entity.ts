@@ -10,7 +10,7 @@ export class TiposServicio extends genericAtributes{
     id: number;
 
     @OneToMany(() => Servicios, Servicios => Servicios.tipo_servicio)
-    servicio: Servicios[];
+    servicios: Servicios[];
 
     @OneToMany(() => Agendamientos,Agendamientos => Agendamientos.tipo_servicio)
     agendamientos: Agendamientos[];
